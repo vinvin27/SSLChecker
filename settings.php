@@ -2,9 +2,7 @@
 session_start();
 include_once("config.php");
 
-  if (isset($_SESSION['vboxx'])) {
-    $x_level = "1";
-  } elseif (!isset($_SESSION['admin']) && $_SESSION['admin'] != 1) {
+  if (!isset($_SESSION['admin']) && $_SESSION['admin'] != 1) {
   header('Location: index.php');
   return;
 }

@@ -49,8 +49,6 @@
                 $_SESSION['id'] = $id;
                 if($admin == 1) {
                     $_SESSION['admin'] = 1;
-                } elseif($admin == 2) {
-                    $_SESSION['vboxx'] = 1;
                 }
                 header("Location: index.php");
             } else {
