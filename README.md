@@ -4,6 +4,8 @@ So first of all, this project is far from done. This is a project i'm working on
 
 SSLChecker is a project designed to monitor alot of Let's Encrypt and other SSL certificates.
 
+DEMO: https://demo.syno.app (Admin Demo coming soon)
+
 # Setup
 1. Download project files
 2. Put them in your webfolder
