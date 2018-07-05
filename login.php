@@ -92,7 +92,7 @@
             <img src="../assets/img/logo_white.png" alt="...">
             <br><br><br>
             <h4 class="text-white">SSLChecker is the best SSL checker available online.</h4>
-            <p class="text-white">Use this system to monitor all of your SSL certificates from any authority. Created by Robin Schmidt for vBoxx B.V. All rights reserved.</p>
+            <p class="text-white">Use this system to monitor all of your SSL certificates from any authority. Created by Robin Schmidt - All rights reserved.</p>
             <br><br>
           </div>
         </div>
