@@ -6,10 +6,6 @@ session_start();
   return;
 }
 
-  if (isset($_SESSION['admin'])) {
-    $x_level = "2";
-  }
-
   if(!isset($_SESSION['username']))  {
   header("Location: login.php");
   return;
@@ -137,6 +133,7 @@ $authority_info = "<p title='$authority_long'>$authority</p>";
     $output = "";
 
     $ip1 = $_SERVER['REMOTE_ADDR'];
+    $pid = $_GET['pid'];
 
     $sql = "SELECT * FROM cert_history WHERE server_id=$pid ORDER BY event_id DESC";
 
