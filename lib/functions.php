@@ -237,7 +237,7 @@ class getUpdate {
           }
 
           $search = 'https://' ;
-          $naam = str_replace($search, '', $naam) ;
+          $this->naam = str_replace($search, '', $this->naam) ;
 
               $posts =  "
               <tr $color>
