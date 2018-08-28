@@ -1,16 +1,10 @@
 <?php
 session_start();
 
-  if (isset($_SESSION['vboxx'])) {
-    $x_level = "1";
-  } elseif (!isset($_SESSION['admin']) && $_SESSION['admin'] != 1) {
+  if (!isset($_SESSION['admin']) && $_SESSION['admin'] != 1) {
   header('Location: index.php');
   return;
 }
-
-  if (isset($_SESSION['admin'])) {
-    $x_level = "2";
-  }
 
   if(!isset($_SESSION['username']))  {
   header("Location: login.php");
