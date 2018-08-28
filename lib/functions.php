@@ -43,23 +43,26 @@ class getData {
 		30, STREAM_CLIENT_CONNECT, $get);
 
 		if($errstr !== '') {
-			$this->serverError();
+			$this->serverError($errstr);
 		} else {
 			$this->calculateSSL($read);
 		}
 
 	}
 
-	private function serverError(){
+	private function serverError($errstr){
 
 		if (strpos($errstr,'No route to host') !== false) {
-			$errormsg = "<i class='fa fa-exclamation-triangle'></i> No route to host";
-		} elseif (strpos($errstr,'php_network_getaddresses: gethostbyname failed.') !== false) {
-			$errormsg = "<i class='fa fa-exclamation-triangle'></i> Hostname not found";
+			$errormsg = "No route to host";
+		} elseif (strpos($errstr,'Name or service') !== false) {
+			$errormsg = "Hostname not found";
 		} else {
-			$errormsg = "<i class='fa fa-exclamation-triangle'></i> Something went wrong";
+			$errormsg = "Something went wrong";
 		}
+		echo "<br><br>**********************************************<br>";
+		echo "$errstr<br><br>";
 		mysqli_query($this->db, "UPDATE servers SET authority='$errormsg', state='5' WHERE id=$this->id");
+
 
 		}
 
@@ -104,7 +107,7 @@ class getData {
 			$state = "7";
 		}
 
-		if ($valid_to != $old_valid_to && $auth6 != "Managed by CloudFlare") {
+		if ($valid_to != $this->old_valid_to && $auth6 != "Managed by CloudFlare") {
 			mysqli_query($this->db, "INSERT INTO cert_history (event_id, event_date, server_id, authority, valid_from, valid_to, url) VALUES ('','$today','$this->id','$this->old_authority','$this->old_valid_from', '$this->old_valid_to', '$this->url')");
 		}
 
@@ -119,6 +122,7 @@ class getData {
 			echo "Days left: $dDiff->days<br>";
 			echo "Valid from: $valid_from<br>";
 			echo "Valid to: $valid_to<br>";
+			echo "Error: $errstr<br>";
 			echo "============";
 			echo "<br>";
 		}
