@@ -1,4 +1,6 @@
 <?php
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
 
 class general {
 
@@ -34,6 +36,15 @@ class getData {
 	public $old_valid_from = '';
 	public $old_valid_to = '';
 	public $old_authority = '';
+	public $mail_username = '';
+	public $mail_password = '';
+	public $mail_host = '';
+	public $mail_port = '';
+	public $mail_from = '';
+	public $mail_to = '';
+	public $useMail = '';
+	public $usePush = '';
+
 
 	public function getSSL(){
 
@@ -113,9 +124,7 @@ class getData {
 
 		echo "<br><br>";
 
-		$title = $x_title;
-
-		$debug = 'false';
+		$debug = 'true';
 
 		if ($debug == "true") {
 			echo "Server: $this->url<br>";
@@ -127,7 +136,7 @@ class getData {
 			echo "<br>";
 		}
 
-		$this->sendPush($dDiff, $auth6);
+		$this->sendNotification($dDiff, $auth6);
 
 		mysqli_query($this->db, "UPDATE servers SET valid_from='$valid_from', valid_to='$valid_to', state='$state', authority='$auth6' WHERE id=$this->id");
 		if ($debug != "true") {
@@ -136,9 +145,40 @@ class getData {
 
 	}
 
-	private function sendPush($dDiff, $auth6){
+	private function sendNotification($dDiff, $auth6){
 
-		include_once("lib/pushbullet.php");
+		if ($dDiff->days == 30 && $auth6 != "Lets Encrypt Authority X3") {
+
+			$trigger = true;
+			$nmessage = "The certificate $this->url from $auth6 is about to expire. You have 30 days left before expiration.";
+
+		} elseif ($dDiff->days == 20) {
+
+			$trigger = true;
+			$nmessage = "The certificate $this->url from $auth6 is about to expire. You have 20 days left before expiration.";
+
+		} elseif ($dDiff->days == 10) {
+
+			$trigger = true;
+			$nmessage = "The certificate $this->url from $auth6 is about to expire. You have 10 days left before expiration.";
+
+		} elseif ($dDiff->days < 30) {
+
+			$trigger = true;
+			$nmessage = "The certificate $this->url from $auth6 is about to expire. You have 1 day left before expiration.";
+		}
+
+		if ($this->useMail == true && $trigger == true) {
+			$this->sendMail($nmessage);
+		}
+		if ($this->usePush == true && $trigger == true) {
+			$this->sendPush($nmessage);
+		}
+	}
+
+	private function sendPush($nmessage){
+
+		include_once("pushbullet.php");
 
 	    $sql = "SELECT * FROM pushbullet ORDER BY id DESC";
 
@@ -149,43 +189,49 @@ class getData {
 	            $name = $row["name"];
 	            $token = $row["token"];
 
-				if ($dDiff->days == 30 && $auth6 != "Lets Encrypt Authority X3") {
+				$target = "";
+				$body = "$nmessage";
 
-					$target = "";
-					$body = "Dear $name, the certificate $this->url from $auth6 is renewable. You have 30 days left before expiration.";
-
-					$pb = new Pushbullet($token);
-					$pb->pushNote($target, $title, $body);
-
-				} elseif ($dDiff->days == 20) {
-
-					$target = "";
-					$body = "Dear $name, The certificate $this->url from $auth6 is still not renewed. You have 20 days left before expiration.";
-
-					$pb = new Pushbullet($token);
-					$pb->pushNote($target, $title, $body);
-
-				} elseif ($dDiff->days == 10) {
-
-					$target = "";
-					$body = "Dear $name, The certificate $this->url from $auth6 is about to expire. You have 10 days left before expiration.";
-
-					$pb = new Pushbullet($token);
-					$pb->pushNote($target, $title, $body);
-
-				} elseif ($dDiff->days == 1) {
-
-					$target = "";
-					$body = "Dear $name, The certificate $this->url from $auth6 is about to expire. You have 1 day left before expiration.";
-
-					$pb = new Pushbullet($token);
-					$pb->pushNote($target, $title, $body);
-
-				}
+				$pb = new Pushbullet($token);
+				$pb->pushNote($target, $title, $body);
 
 	        }
 	    }
 
+	}
+
+	private function sendMail($nmessage){
+
+		require_once 'Exception.php';
+		require_once 'PHPMailer.php';
+		require_once 'SMTP.php';
+
+		$mail = new PHPMailer(true);                              // Passing `true` enables exceptions
+		try {
+		    //Server settings
+		    $mail->SMTPDebug = 2;                                 // Enable verbose debug output
+		    $mail->isSMTP();                                      // Set mailer to use SMTP
+		    $mail->Host = "$this->mail_host";  // Specify main and backup SMTP servers
+		    $mail->SMTPAuth = true;                               // Enable SMTP authentication
+		    $mail->Username = "$this->mail_username";                 // SMTP username
+		    $mail->Password = "$this->mail_password";                           // SMTP password
+		    $mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
+		    $mail->Port = $this->mail_port;                                    // TCP port to connect to
+
+		    //Recipients
+		    $mail->setFrom("$this->mail_from", 'SSLChecker');
+		    $mail->addAddress("$this->mail_to");
+
+		    //Content
+		    $mail->isHTML(true);                                  // Set email format to HTML
+		    $mail->Subject = "$this->url needs your attention";
+		    $mail->Body    = "$nmessage";
+
+			$mail->send();
+			echo 'Message has been sent';
+		} catch (Exception $e) {
+			echo 'Message could not be sent. Mailer Error: ', $mail->ErrorInfo;
+		}
 	}
 }
 

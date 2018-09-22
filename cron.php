@@ -11,6 +11,16 @@
 
                 $getdata = new getData();
 
+                $getdata->useMail = $useMail;
+                $getdata->usePush = $usePush;
+
+                $getdata->mail_username = $mail_username;
+                $getdata->mail_password = $mail_password;
+                $getdata->mail_host = $mail_host;
+                $getdata->mail_port = $mail_port;
+                $getdata->mail_from = $mail_from;
+                $getdata->mail_to = $mail_to;
+
                 $getdata->db = $db;
                 $getdata->id = $row["id"];
                 $getdata->url = $row["name"];
