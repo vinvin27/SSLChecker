@@ -116,7 +116,7 @@ echo "
           </li>
 
           <li class='menu-item'>
-            <a class='menu-link' href='info.php'>
+            <a class='menu-link' href='https://github.com/pernodpepper/SSLChecker/releases'>
               <span class='icon fa fa-info'></span>
               <span class='title'>Info</span>
             </a>
