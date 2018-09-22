@@ -13,6 +13,10 @@
               <h4 class="card-title"><strong>Version</strong></h4>
 
               <div class="card-body">
+            <dt>0.6.1</dt>
+              <ul>
+                <li><span class='badge badge-pill badge-success'>Added</span> SMTP Mailer</li>
+              </ul>
             <dt>0.6.0</dt>
               <ul>
                 <li><span class='badge badge-pill badge-success'>Added</span> Account page</li>
