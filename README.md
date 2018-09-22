@@ -10,8 +10,8 @@ DEMO: https://demo.syno.app (Admin Demo coming soon)
 - Webinterface
 - Monitor SSL certificates on different ports
 - Protected Admin Area
-- Pushbullet Notifications
-- SSL Log (Works for 80%)
+- Pushbullet and E-mail notifications
+- SSL Log
 - Cloudflare SSL recognition
 
 # Setup
