@@ -75,7 +75,6 @@ echo "
     <!-- Styles -->
     <link href='assets/css/core.min.css' rel='stylesheet'>
     <link href='assets/css/app.min.css' rel='stylesheet'>
-    <link href='assets/css/style.min.css' rel='stylesheet'>
     <link href='assets/css/pepper.css' rel='stylesheet'>
 
     <!-- Favicons -->
