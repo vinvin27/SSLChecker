@@ -140,9 +140,8 @@ class getData {
 
 		mysqli_query($this->db, "UPDATE servers SET valid_from='$valid_from', valid_to='$valid_to', state='$state', authority='$auth6' WHERE id=$this->id");
 		if ($debug != "true") {
-			header('Location: index.php');
+		    header('Location: index.php');
 		}
-
 	}
 
 	private function sendNotification($dDiff, $auth6){
@@ -202,6 +201,7 @@ class getData {
 
 	private function sendMail($nmessage){
 
+		include 'template.php';
 		require_once 'Exception.php';
 		require_once 'PHPMailer.php';
 		require_once 'SMTP.php';
@@ -225,7 +225,7 @@ class getData {
 		    //Content
 		    $mail->isHTML(true);                                  // Set email format to HTML
 		    $mail->Subject = "$this->url needs your attention";
-		    $mail->Body    = "$nmessage";
+		    $mail->Body    = "$email_3 $nmessage $email_4";
 
 			$mail->send();
 			echo 'Message has been sent';
