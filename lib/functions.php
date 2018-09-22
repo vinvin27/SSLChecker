@@ -162,7 +162,7 @@ class getData {
 			$trigger = true;
 			$nmessage = "The certificate $this->url from $auth6 is about to expire. You have 10 days left before expiration.";
 
-		} elseif ($dDiff->days < 30) {
+		} elseif ($dDiff->days == 1) {
 
 			$trigger = true;
 			$nmessage = "The certificate $this->url from $auth6 is about to expire. You have 1 day left before expiration.";
