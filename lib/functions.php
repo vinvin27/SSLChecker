@@ -124,7 +124,7 @@ class getData {
 
 		echo "<br><br>";
 
-		$debug = 'true';
+		$debug = 'false';
 
 		if ($debug == "true") {
 			echo "Server: $this->url<br>";
