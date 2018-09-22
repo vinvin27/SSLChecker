@@ -62,6 +62,7 @@ echo "
     <meta name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no'>
     <meta name='description' content='Responsive admin dashboard and web application ui kit. '>
     <meta name='keywords' content='blank, starter'>
+    <meta http-equiv='refresh' content='1200' > 
 
     <title>Dashboard &mdash; PepperSSL</title>
 
