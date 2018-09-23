@@ -6,7 +6,6 @@ $db_username = '';
 $db_password = '';
 $db_database = '';
 
-// maak de database-verbinding
 $db = mysqli_connect($db_hostname, $db_username, $db_password, $db_database);
 
 // Google Recaptcha Settings
@@ -27,3 +26,6 @@ $mail_host = "mail.example.com";
 $mail_port = "587"; // Do not change (TLS Only)
 $mail_from = "ssl@example.com";
 $mail_to = "mymail@example.com";
+
+// Testing Settings
+$testMail = false; // If true, SSLChecker will send mail for every entry in database. (I don't recommend adding more as 2 monitored certificates while testing.)

@@ -44,6 +44,7 @@ class getData {
 	public $mail_to = '';
 	public $useMail = '';
 	public $usePush = '';
+	public $testMail = '';
 
 
 	public function getSSL(){
@@ -146,6 +147,8 @@ class getData {
 
 	private function sendNotification($dDiff, $auth6){
 
+		$trigger = false;
+
 		if ($dDiff->days == 30 && $auth6 != "Lets Encrypt Authority X3") {
 
 			$trigger = true;
@@ -165,6 +168,10 @@ class getData {
 
 			$trigger = true;
 			$nmessage = "The certificate $this->url from $auth6 is about to expire. You have 1 day left before expiration.";
+
+		} elseif ($this->testMail == true) {
+			$trigger = true;
+			$nmessage = "$this->url Test mail";
 		}
 
 		if ($this->useMail == true && $trigger == true) {
