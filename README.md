@@ -1,5 +1,7 @@
 # SSLChecker
 
+[![GitHub Pre-Releases](https://img.shields.io/github/downloads-pre/pernodpepper/sslchecker/latest/total.svg)](https://github.com/pernodpepper/SSLChecker/archive/0.6.3.zip)
+
 So first of all, this project is far from done. This is a project i'm working on in my free time. Feel free to give it a try.
 
 SSLChecker is a project designed to monitor alot of Let's Encrypt and many other SSL certificates.
