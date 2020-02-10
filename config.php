@@ -29,5 +29,7 @@ $mail_port = "587"; // Do not change (TLS Only)
 $mail_from = "ssl@example.com";
 $mail_to = "mymail@example.com";
 
+include("lib/lang_en.php");
+
 // Testing Settings
 $testMail = false; // If true, SSLChecker will send mail for every entry in database. (I don't recommend adding more as 2 monitored certificates while testing.)
