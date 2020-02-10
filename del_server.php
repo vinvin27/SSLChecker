@@ -16,8 +16,10 @@
 		header("Location: admin.php");
 	} else {
 		$pid = $_GET['pid'];
-		$sql = "DELETE FROM servers WHERE id=$pid";
-		mysqli_query($db, $sql);
+		$sql = "DELETE FROM servers WHERE id=$pid;";
+		$sql .= "DELETE FROM cert_history WHERE server_id=$pid;";
+		echo "$sql";
+		mysqli_multi_query($db, $sql);
 		header("Location: index.php");
 	}
 ?>

@@ -4,7 +4,7 @@ echo "
       <footer class='site-footer'>
         <div class='row'>
           <div class='col-md-6'>
-            <p class='text-center text-md-left'>Copyright © 2018 <a href='https://peppercloud.nl'>Robin Schmidt</a>. All rights reserved.</p>
+            <p class='text-center text-md-left'>Copyright © 2020 <a href='https://peppercloud.nl'>Robin Schmidt</a>. All rights reserved.</p>
           </div>
           <div class='col-md-6 text-center text-md-right'>
             <p>Version: 0.6.3</p>

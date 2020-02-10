@@ -49,21 +49,23 @@ if ($state != 5) {
 }
 
 if ($state == 3) {
-  $state_show = "<td><span class='badge badge-pill badge-danger'>Expired</span></td>";
+  $state_show = "<td><span class='badge badge-pill badge-danger'>".lang('STATUS_EXPIRED')."</span></td>";
+  $color = "class='bg-dark'";
 } elseif ($state == 2) {
-  $state_show = "<td><span class='badge badge-pill badge-danger'>Almost expired</span></td>";
-} elseif ($state == 1) {
-  $state_show = "<td><span class='badge badge-pill badge-warning'>Renewable</span></td>";
-} elseif ($state == 0) {
-  $state_show = "<td><span class='badge badge-pill badge-success'>Good</span></td>";
-} elseif ($state == 4) {
-  $state_show = "<td><span class='badge badge-pill badge-info'>Polling</span></td>";
-} elseif ($state == 5) {
-  $state_show = "<td><span class='badge badge-pill badge-danger'>Error</span></td>";
+  $state_show = "<td><span class='badge badge-pill badge-danger'>".lang('STATUS_A_EXPIRED')."</span></td>";
 } elseif ($state == 6) {
-  $state_show = "<td><span class='badge badge-pill badge-danger'>Renewable</span></td>";
+  $state_show = "<td><span class='badge badge-pill badge-danger'>".lang('STATUS_RENEW2')."</span></td>";
+} elseif ($state == 1) {
+  $state_show = "<td><span class='badge badge-pill badge-warning'>".lang('STATUS_RENEW')."</span></td>";
+} elseif ($state == 0) {
+  $state_show = "<td><span class='badge badge-pill badge-success'>".lang('STATUS_VALID')."</span></td>";
+} elseif ($state == 4) {
+  $state_show = "<td><span class='badge badge-pill badge-info'>".lang('STATUS_POLLING')."</span></td>";
+} elseif ($state == 5) {
+  $state_show = "<td><span class='badge badge-pill badge-danger'>".lang('STATUS_ERROR')."</span></td>";
+  $color = "class='bg-dark'";
 } elseif ($state == 7) {
-  $state_show = "<td><span class='badge badge-pill badge-info'>Cloudflare</span></td>";
+  $state_show = "<td><span class='badge badge-pill badge-info'>".lang('STATUS_VALID')."</span></td>";
 }
 
 $authority_info = "<p title='$authority_long'>$authority</p>";
@@ -80,16 +82,16 @@ $authority_info = "<p title='$authority_long'>$authority</p>";
 
           <div class="col-lg-6">
             <div class="card">
-              <h4 class="card-title"><strong>SSL info</strong></h4>
+              <h4 class="card-title"><strong><?php echo lang('CERT_INFO');?></strong></h4>
               <div class="card-body">
                 <div class="row">
                   <div class="col-lg-3">
-                    <p><strong>Domain:</strong></p>
-                    <p><strong>Port:</strong></p>
-                    <p><strong>Authority:</strong></p>
-                    <p><strong>Valid from:</strong></p>
-                    <p><strong>Valid to:</strong></p>
-                    <p><strong>State:</strong></p>
+                    <p><strong><?php echo lang('CERT_DOMAIN');?>:</strong></p>
+                    <p><strong><?php echo lang('CERT_PORT');?>:</strong></p>
+                    <p><strong><?php echo lang('CERT_AUTH');?>:</strong></p>
+                    <p><strong><?php echo lang('CERT_VFROM');?>:</strong></p>
+                    <p><strong><?php echo lang('CERT_VTO');?>:</strong></p>
+                    <p><strong><?php echo lang('CERT_STATE');?>:</strong></p>
                   </div>
                   <div class="col-lg-9">
                     <p><?php echo "$naam";?></p>
@@ -106,11 +108,11 @@ $authority_info = "<p title='$authority_long'>$authority</p>";
 
           <div class="col-lg-6">
             <div class="card">
-              <h4 class="card-title"><strong>Amount of old certificates</strong></h4>
+              <h4 class="card-title"><strong><?php echo lang('CERT_USED_TITLE');?></strong></h4>
               <div class="card-body">
                 <div class="row">
                   <div class="col-lg-12 text-md-center">
-                    <h2><?php echo "$amount";?> Certs</h2>
+                    <h2><?php echo "$amount";?> Certificates</h2>
                   </div>
                 </div>
               </div>
@@ -123,7 +125,7 @@ $authority_info = "<p title='$authority_long'>$authority</p>";
         <div class="row">
           <div class="col-lg-12">
             <div class="card">
-              <h4 class="card-title"><strong>Certificate history</strong></h4>
+              <h4 class="card-title"><strong><?php echo lang('CERT_HISTORY_TITLE');?></strong></h4>
 
               <div class="card-body">
 <?php
@@ -133,7 +135,6 @@ $authority_info = "<p title='$authority_long'>$authority</p>";
     $output = "";
 
     $ip1 = $_SERVER['REMOTE_ADDR'];
-
     $pid = $_GET['pid'];
 
     $sql = "SELECT * FROM cert_history WHERE server_id=$pid ORDER BY event_id DESC";
@@ -144,11 +145,11 @@ $authority_info = "<p title='$authority_long'>$authority</p>";
                 <table class='table table-striped'>
                   <thead>
                 <tr>
-                  <th>Changed on</th>
-                  <th>Certificate</th>
-                  <th>Authority</th>
-                  <th>Created on</th>
-                  <th>Expird on</th>
+                  <th>".lang('CERT_CHANGED')."</th>
+                  <th>".lang('CERT_DOMAIN')."</th>
+                  <th>".lang('CERT_AUTH')."</th>
+                  <th>".lang('CERT_VFROM')."</th>
+                  <th>".lang('CERT_VTO')."</th>
                 <tr>
               </thead>
               <tbody>

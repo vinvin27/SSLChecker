@@ -2,3 +2,7 @@
     background-color: #e99924 !important;
     color: #fff;
 }
+
+.topbar-inverse .topbar-btn:hover, .topbar-inverse .dropdown.show .topbar-btn {
+    border: none !important;
+}

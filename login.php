@@ -35,12 +35,12 @@
           $captcha=$_POST['g-recaptcha-response'];
 
         if(!$captcha){
-          $error = "<p><small>Please complete the recaptcha</small></p>";
+          $error = "<p><small>".lang('LOGIN_CAPTCHA_ERROR')."</small></p>";
         }
         $response=json_decode(file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=$privatekey&response=".$captcha."&remoteip=".$_SERVER['REMOTE_ADDR']), true);
         if($response['success'] == false)
         {
-          $error = "<p><small>Please complete the recaptcha</small></p>";
+          $error = "<p><small>".lang('LOGIN_CAPTCHA_ERROR')."</small></p>";
         }
         else 
         {
@@ -52,7 +52,7 @@
                 }
                 header("Location: index.php");
             } else {
-                $error = "<p><small>Username or password is incorrect</small></p>";
+                $error = "<p><small>".lang('LOGIN_AUTH_ERROR')."</small></p>";
             }
           }
 
@@ -91,8 +91,8 @@
           <div class="col-md-10 col-lg-8 align-self-end">
             <img src="../assets/img/logo_white.png" alt="...">
             <br><br><br>
-            <h4 class="text-white">SSLChecker is the best SSL checker available online.</h4>
-            <p class="text-white">Use this system to monitor all of your SSL certificates from any authority. Created by Robin Schmidt - All rights reserved.</p>
+            <h4 class="text-white"><?php echo lang('LOGIN_TITLE');?></h4>
+            <p class="text-white"><?php echo lang('LOGIN_TITLE_TEXT');?> Created by Robin Schmidt - All rights reserved.</p>
             <br><br>
           </div>
         </div>
@@ -103,19 +103,19 @@
 
       <div class="col-md-6 col-lg-5 col-xl-4 align-self-center">
         <div class="px-80 py-30">
-          <h4>Login</h4>
-          <p><small>Sign into your account</small></p>
+          <h4><?php echo lang('LOGIN_LOGIN');?></h4>
+          <p><small><?php echo lang('LOGIN_SIGNIN_TEXT');?></small></p>
           <br>
 
           <form class="form-type-material" role="form" action="login.php" method="POST" enctype="multipart/form-data">
             <div class="form-group">
               <input type="text" class="form-control" name="username" id="username">
-              <label for="username">Username</label>
+              <label for="username"><?php echo lang('LOGIN_USERNAME');?></label>
             </div>
 
             <div class="form-group">
               <input type="password" class="form-control" name="password" id="password">
-              <label for="password">Password</label>
+              <label for="password"><?php echo lang('LOGIN_PASSWORD');?></label>
             </div>
 
             <div class="form-group">
@@ -125,13 +125,13 @@
             <?php echo "$error"; ?>
 
             <div class="form-group">
-              <button name="login" value="Login" class="btn btn-bold btn-block btn-primary" type="submit">Login</button>
+              <button name="login" value="Login" class="btn btn-bold btn-block btn-primary" type="submit"><?php echo lang('LOGIN_LOGIN');?></button>
             </div>
           </form>
 
           <hr class="w-30px">
 
-          <p class="text-center text-muted fs-13 mt-20">Don't have an account? <a class="text-primary fw-500" href="#">Sign up</a></p>
+          <p class="text-center text-muted fs-13 mt-20"><?php echo lang('LOGIN_SIGNUP_TEXT');?> <a class="text-primary fw-500" href="#"><?php echo lang('LOGIN_SIGNUP');?></a></p>
         </div>
       </div>
     </div>

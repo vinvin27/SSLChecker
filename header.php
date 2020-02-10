@@ -14,40 +14,40 @@
   }
   
   if ($username != 'Guest') {
-  $loginout = "<a class='dropdown-item' href='logout.php'><i class='ti-power-off'></i> Logout</a>";
+  $loginout = "<a class='dropdown-item' href='logout.php'><i class='ti-power-off'></i> ".lang('MENU_LOGOUT')."</a>";
 	$addserverbutton = "
-            <li class='menu-category'>Admin Area</li>
+            <li class='menu-category'>".lang('MENU_ADMIN')."</li>
 
           <li class='menu-item'>
             <a class='menu-link' href='addserver.php'>
               <span class='icon fa fa-plus'></span>
-              <span class='title'>Add Server</span>
+              <span class='title'>".lang('MENU_ADMIN_ADD')."</span>
             </a>
           </li>
 
           <li class='menu-item'>
             <a class='menu-link' href='settings.php'>
               <span class='icon fa fa-gear'></span>
-              <span class='title'>Pushbullet</span>
+              <span class='title'>".lang('MENU_ADMIN_PUSH')."</span>
             </a>
           </li>
 
           <li class='menu-item'>
             <a class='menu-link' href='cron.php'>
               <span class='icon fa fa-refresh'></span>
-              <span class='title'>Update data</span>
+              <span class='title'>".lang('MENU_ADMIN_UPDATE')."</span>
             </a>
           </li>
   ";
   } else {
-  $loginout = "<a class='dropdown-item' href='login.php'><i class='ti-power-off'></i> Login</a>";
+  $loginout = "<a class='dropdown-item' href='login.php'><i class='ti-power-off'></i> ".lang('MENU_LOGIN')."</a>";
 	$addserverbutton = "";
   }
   
 	if(isset($_SESSION['admin']) && $_SESSION['admin'] = 1) {
 		$title = "Administrator";
 		$regdate = "Member since: A while ago";
-    $myaccount = "<a class='dropdown-item' href='account.php?pid=$pid'><i class='ti-settings'></i> My Account</a>";
+    $myaccount = "<a class='dropdown-item' href='account.php?pid=$pid'><i class='ti-settings'></i> ".lang('MENU_LOGIN_MYACCOUNT')."</a>";
 	} else {
 		$title = "Guest";
 		$regdate = "Please log in to show statics";
@@ -60,11 +60,10 @@ echo "
   <head>
     <meta charset='utf-8'>
     <meta name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no'>
-    <meta name='description' content='Responsive admin dashboard and web application ui kit. '>
+    <meta name='description' content='".lang('PAGE_DESC')." '>
     <meta name='keywords' content='blank, starter'>
-    <meta http-equiv='refresh' content='1200' > 
 
-    <title>Dashboard &mdash; PepperSSL</title>
+    <title>Dashboard &mdash; ".lang('PAGE_BRAND')."</title>
 
     <!-- Fonts -->
     <link href='https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,300i' rel='stylesheet'>
@@ -75,6 +74,7 @@ echo "
     <!-- Styles -->
     <link href='assets/css/core.min.css' rel='stylesheet'>
     <link href='assets/css/app.min.css' rel='stylesheet'>
+    <link href='assets/css/style.min.css' rel='stylesheet'>
     <link href='assets/css/pepper.css' rel='stylesheet'>
 
     <!-- Favicons -->
@@ -82,7 +82,7 @@ echo "
     <link rel='icon' href='assets/img/favicon.png'>
   </head>
 
-  <body onload='updateStatus1();' onload='ajax();''>
+  <body onload='updateStatus1();' onload='ajax();'>
 
     <!-- Preloader -->
     <div class='preloader'>
@@ -111,14 +111,14 @@ echo "
           <li class='menu-item'>
             <a class='menu-link' href='index.php'>
               <span class='icon fa fa-home'></span>
-              <span class='title'>Dashboard</span>
+              <span class='title'>".lang('MENU_DASH')."</span>
             </a>
           </li>
 
           <li class='menu-item'>
             <a class='menu-link' href='https://github.com/pernodpepper/SSLChecker/releases'>
               <span class='icon fa fa-info'></span>
-              <span class='title'>Info</span>
+              <span class='title'>".lang('MENU_INFO')."</span>
             </a>
           </li>
 
@@ -134,7 +134,7 @@ echo "
 <header class='topbar topbar-inverse bg-purple'>
           <div class='topbar-left'>
             <button class='topbar-btn sidebar-toggler'>☰</button>
-            <h3 class='topbar-title'>SSLChecker</h3>
+            <h3 class='topbar-title'>".lang('PAGE_BRAND')."</h3>
           </div>
 
           <div class='topbar-right'>

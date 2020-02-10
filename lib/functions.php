@@ -1,6 +1,7 @@
 <?php
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
+include_once("config.php");
 
 class general {
 
@@ -71,8 +72,6 @@ class getData {
 		} else {
 			$errormsg = "Something went wrong";
 		}
-		echo "<br><br>**********************************************<br>";
-		echo "$errstr<br><br>";
 		mysqli_query($this->db, "UPDATE servers SET authority='$errormsg', state='5' WHERE id=$this->id");
 
 
@@ -114,7 +113,7 @@ class getData {
 			$state = "0";
 		}
 
-		if ($auth6 == "COMODO ECC Domain Validation Secure Server CA 2") {
+		if ($auth6 == "COMODO ECC Domain Validation Secure Server CA 2" || $auth6 == "CloudFlare Inc ECC CA2") {
 			$auth6 = "Managed by CloudFlare";
 			$state = "7";
 		}
@@ -270,38 +269,53 @@ class getUpdate {
           $color = "";
 
           if ($this->state == 3) {
-            $state_show = "<td><span class='badge badge-pill badge-danger'>Expired</span></td>";
+            $state_show = "<td><span class='badge badge-pill badge-danger'>".lang('STATUS_EXPIRED')."</span></td>";
             $color = "class='bg-dark'";
           } elseif ($this->state == 2) {
-            $state_show = "<td><span class='badge badge-pill badge-danger'>Almost expired</span></td>";
+            $state_show = "<td><span class='badge badge-pill badge-danger'>".lang('STATUS_A_EXPIRED')."</span></td>";
           } elseif ($this->state == 6) {
-            $state_show = "<td><span class='badge badge-pill badge-danger'>Renewable</span></td>";
+            $state_show = "<td><span class='badge badge-pill badge-danger'>".lang('STATUS_RENEW2')."</span></td>";
           } elseif ($this->state == 1) {
-            $state_show = "<td><span class='badge badge-pill badge-warning'>Renewable</span></td>";
+            $state_show = "<td><span class='badge badge-pill badge-warning'>".lang('STATUS_RENEW')."</span></td>";
           } elseif ($this->state == 0) {
-            $state_show = "<td><span class='badge badge-pill badge-success'>Good</span></td>";
+            $state_show = "<td><span class='badge badge-pill badge-success'>".lang('STATUS_VALID')."</span></td>";
           } elseif ($this->state == 4) {
-            $state_show = "<td><span class='badge badge-pill badge-info'>Polling</span></td>";
+            $state_show = "<td><span class='badge badge-pill badge-info'>".lang('STATUS_POLLING')."</span></td>";
           } elseif ($this->state == 5) {
-            $state_show = "<td><span class='badge badge-pill badge-danger'>Error</span></td>";
+            $state_show = "<td><span class='badge badge-pill badge-danger'>".lang('STATUS_ERROR')."</span></td>";
             $color = "class='bg-dark'";
           } elseif ($this->state == 7) {
-            $state_show = "<td><span class='badge badge-pill badge-info'>CloudFlare</span></td>";
+            $state_show = "<td><span class='badge badge-pill badge-info'>".lang('STATUS_VALID')."</span></td>";
           }
 
           if ($this->admin != 0) {
-            $edit2 = "<td><a href='server_log.php?pid=$this->id' title='Show history'><i class='fa fa-fw fa-history'></i></a><a href='del_server.php?pid=$this->id' title='Delete server' class='confirmation'><i class='fa fa-fw fa-close'></i></a></td>";
+            $edit2 = "<td><a href='server_log.php?pid=$this->id' title='".lang('STATUS_ADMIN_HISTORY')."'><i class='fa fa-fw fa-history'></i></a><a href='del_server.php?pid=$this->id' title='".lang('STATUS_ADMIN_DELETE')."' class='confirmation'><i class='fa fa-fw fa-close'></i></a></td>";
+            $displayname = $this->naam;
+          } else {
+        	$displayname = lang('URL_HIDDEN');
           }
+          
+          if ($this->valid_to != "0000-00-00") {
+			$now = time();
+			$your_date = strtotime($this->valid_to);
+			$datediff = $your_date - $now;
+			
+			$daysleft = round($datediff / (60 * 60 * 24));
+			$daysleft = "$daysleft ".lang('STATUS_DAYS')."";
+          } else {
+        	$daysleft = "0 days";
+          }
+
 
           $search = 'https://' ;
           $this->naam = str_replace($search, '', $this->naam) ;
 
               $posts =  "
               <tr $color>
-                <td>$this->naam</td>
-                <td>$authority</td>
-                <td>$this->valid_from</td>
-                <td>$this->valid_to</td>
+                <td>$displayname</td>
+                <td data-toggle='tooltip' title='$this->authority_long'>$authority</td>
+                <td>$this->valid_from - $this->valid_to</td>
+                <td>$daysleft</td>
                 $state_show
                 $edit2
               </tr>";

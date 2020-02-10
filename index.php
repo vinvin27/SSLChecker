@@ -1,5 +1,6 @@
 <?php
   session_start();
+  include_once("config.php");
 
   $username = $_SESSION['username'];
 
@@ -15,7 +16,7 @@
         <div class="row">
           <div class="col-lg-12">
             <div class="card">
-              <h4 class="card-title"><strong>Monitor</strong></h4>
+              <h4 class="card-title"><strong><?php echo lang('STATUS_MONITOR');?></strong></h4>
               <div class="card-body">
                   <div id="statusElement1"></div>
               </div>
