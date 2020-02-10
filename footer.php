@@ -7,7 +7,7 @@ echo "
             <p class='text-center text-md-left'>Copyright © 2020 <a href='https://peppercloud.nl'>Robin Schmidt</a>. All rights reserved.</p>
           </div>
           <div class='col-md-6 text-center text-md-right'>
-            <p>Version: 0.6.3</p>
+            <p>Version: 0.7.0</p>
           </div>
         </div>
       </footer>
