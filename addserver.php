@@ -22,7 +22,7 @@
         $port = "443";
       }
 
-    $sql = "INSERT INTO servers (id, name, port, authority, state) VALUES ('','$name','$port','First update can take up to 24 hours.','4')";
+    $sql = "INSERT INTO servers (name, port, authority, state) VALUES ('$name','$port','First update can take up to 24 hours.','4')";
 
         $sql1 = "SELECT * FROM servers WHERE name='$name'";
         $result = mysqli_query($db , $sql1);
