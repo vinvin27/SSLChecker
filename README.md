@@ -22,3 +22,7 @@ SSLChecker is a project designed to monitor alot of Let's Encrypt and many other
 5. Log in with Admin / Welkom2018
 6. Add your first webserver to monitor SSL
 7. Set a daily cronjob on cron.php
+
+# Screenshots
+
+![Admin panel](https://i.ibb.co/MpGwmXn/Screenshot-1.png)
