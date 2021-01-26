@@ -64,7 +64,7 @@
   echo $posts2;
 
   $getupdate = new getUpdate($db);
-  $allDomains = $getupdate->getAllDomainsByState(6);
+  $allDomains = $getupdate->getAllDomainsByAuthority('null');
 
   echo $getupdate->getRawData( $allDomains );
 

@@ -269,7 +269,7 @@ class getUpdate {
 			return false;
 		}
 
-		$sql = "SELECT * FROM servers WHERE authority=".$state." ORDER BY valid_to, name" ;
+		$sql = "SELECT * FROM servers WHERE authority='".$state."'";
 
 		$res = mysqli_query($this->db, $sql) or die(mysqli_error($this->db));
 		$rows = array();
