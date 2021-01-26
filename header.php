@@ -1,5 +1,7 @@
 <?php
-  session_start();
+  if (session_status() == PHP_SESSION_NONE) {
+      session_start();
+  }
 
   include_once("config.php");
   include_once("lib/functions.php");
@@ -12,7 +14,7 @@
   if($username == "") {
       $username = "Guest";
   }
-  
+
   if ($username != 'Guest') {
   $loginout = "<a class='dropdown-item' href='logout.php'><i class='ti-power-off'></i> ".lang('MENU_LOGOUT')."</a>";
 	$addserverbutton = "
@@ -43,7 +45,7 @@
   $loginout = "<a class='dropdown-item' href='login.php'><i class='ti-power-off'></i> ".lang('MENU_LOGIN')."</a>";
 	$addserverbutton = "";
   }
-  
+
 	if(isset($_SESSION['admin']) && $_SESSION['admin'] = 1) {
 		$title = "Administrator";
 		$regdate = "Member since: A while ago";
@@ -52,8 +54,8 @@
 		$title = "Guest";
 		$regdate = "Please log in to show statics";
 	}
-  
-  $extra = file_get_contents('https://www.peppercloud.nl/res/sslchecker.txt', FILE_USE_INCLUDE_PATH);
+
+  $extra =  '';//file_get_contents('https://www.peppercloud.nl/res/sslchecker.txt', FILE_USE_INCLUDE_PATH);
 
 echo "
 <html lang='en'>

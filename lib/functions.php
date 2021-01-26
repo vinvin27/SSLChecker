@@ -52,7 +52,7 @@ class getData {
 
 		$orignal_parse = parse_url($this->url, PHP_URL_HOST);
 		$get = stream_context_create(array("ssl" => array("capture_peer_cert" => TRUE)));
-		$read = stream_socket_client("ssl://".$orignal_parse.":$this->port", $errno, $errstr, 
+		$read = stream_socket_client("ssl://".$orignal_parse.":$this->port", $errno, $errstr,
 		30, STREAM_CLIENT_CONNECT, $get);
 
 		if($errstr !== '') {
@@ -250,6 +250,47 @@ class getUpdate {
 	public $valid_to = '';
 	public $state = '';
 	public $admin = '';
+	public $db = '';
+
+
+	public function __construct( $db = false ){
+		$this->db = $db;
+	}
+	// Return all domains records
+	public function getAllDomains(){
+		$sql = "SELECT * FROM servers ORDER BY valid_to, name";
+		if(mysqli_num_rows($res) > 0) {
+		    return mysqli_fetch_assoc($res);
+	  }
+	}
+
+	public function getAllDomainsByState( $state = false ){
+		if( !$state ){
+			return false;
+		}
+
+		$sql = "SELECT * FROM servers WHERE state=".$state." ORDER BY valid_to, name" ;
+
+		$res = mysqli_query($this->db, $sql) or die(mysqli_error($this->db));
+		$rows = array();
+		if(mysqli_num_rows($res) > 0) {
+			while($row = mysqli_fetch_assoc($res)){
+			    $rows[] = $row;
+			}
+			return $rows;
+			//	return mysqli_fetch_assoc($res);
+		}
+	}
+
+
+ public function getRawData( $data ){
+	// print_r($data); die();
+	 echo '<textarea style="width:100%;padding:10px">';
+	 foreach($data as $domain){
+		 echo str_replace('https://','', $domain['name']).PHP_EOL;
+	 }
+	 echo '</textarea>';
+ }
 
 	public function fetchData(){
         if ($this->state != 5) {
@@ -294,32 +335,32 @@ class getUpdate {
           } else {
         	$displayname = lang('URL_HIDDEN');
           }
-          
+
           if ($this->valid_to != "0000-00-00") {
-			$now = time();
-			$your_date = strtotime($this->valid_to);
-			$datediff = $your_date - $now;
-			
-			$daysleft = round($datediff / (60 * 60 * 24));
-			$daysleft = "$daysleft ".lang('STATUS_DAYS')."";
+							$now = time();
+							$your_date = strtotime($this->valid_to);
+							$datediff = $your_date - $now;
+
+							$daysleft = round($datediff / (60 * 60 * 24));
+							$daysleft = "$daysleft ".lang('STATUS_DAYS')."";
           } else {
-        	$daysleft = "0 days";
+        			$daysleft = "0 days";
           }
 
 
           $search = 'https://' ;
           $this->naam = str_replace($search, '', $this->naam) ;
 
-              $posts =  "
-              <tr $color>
-                <td>$displayname</td>
-                <td data-toggle='tooltip' title='$this->authority_long'>$authority</td>
-                <td>$this->valid_from - $this->valid_to</td>
-                <td>$daysleft</td>
-                $state_show
-                $edit2
-              </tr>";
-              return $posts;
+          $posts =  "
+          <tr $color>
+            <td>$displayname</td>
+            <td data-toggle='tooltip' title='$this->authority_long'>$authority</td>
+            <td>$this->valid_from - $this->valid_to</td>
+            <td>$daysleft</td>
+            $state_show
+            $edit2
+          </tr>";
+          return $posts;
 	}
 
 }

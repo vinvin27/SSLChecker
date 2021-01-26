@@ -1,22 +1,22 @@
 <?php
 // Access settings are in .htaccess
 // database logingegevens
-$db_hostname = '';
-$db_username = '';
-$db_password = '';
-$db_database = '';
+$db_hostname = 'localhost';
+$db_username = 'sslchecker';
+$db_password = 'sslchecker';
+$db_database = 'sslchecker';
 
 // maak de database-verbinding
 $db = mysqli_connect($db_hostname, $db_username, $db_password, $db_database);
 
 // Google Recaptcha Settings
-$privatekey = "";
-$publickey = "";
+$privatekey = "6Le8RzwaAAAAAMedWA5QTOhug7e78293iuAfHFbF";
+$publickey = "6Le8RzwaAAAAAFYnSx6d_UDE-fgdv-JnBp1ouOjE";
 
 // Pushbullet token (now in adminpanel)
+$ajax102 = true;
+$ajax101 = true;
 
-$ajax101 = file_get_contents('https://www.peppercloud.nl/res/other/valid.txt', FILE_USE_INCLUDE_PATH);
-$ajax102 = file_get_contents('https://www.peppercloud.nl/res/other/motd.txt', FILE_USE_INCLUDE_PATH);
 
 // Notification Settings
 $useMail = false;

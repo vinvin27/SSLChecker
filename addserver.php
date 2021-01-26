@@ -22,7 +22,9 @@
         $port = "443";
       }
 
-    $sql = "INSERT INTO servers (name, port, authority, state) VALUES ('$name','$port','First update can take up to 24 hours.','4')";
+
+
+    $sql = "INSERT INTO servers (name, port, authority,valid_from,valid_to,state) VALUES ('$name','$port','First update can take up to 24 hours.','0000-00-00','0000-00-00','4')";
 
         $sql1 = "SELECT * FROM servers WHERE name='$name'";
         $result = mysqli_query($db , $sql1);
@@ -32,8 +34,8 @@
                   <button type='button' class='close' data-dismiss='alert'><span>×</span></button>
                   <strong>Error!</strong><br> Domain already exists.
                 </div>
-          ";      
-        
+          ";
+
         } else {
 
         if($name == "") {
@@ -44,7 +46,12 @@
                 </div>
           ";
         } else {
-          mysqli_query($db, $sql);
+
+          if (! mysqli_query($db, $sql) ){
+
+            printf("Erreur : %s\n", mysqli_error($db) );
+          }
+
           $error = "
                 <div class='alert alert-success alert-dismissible fade show' role='alert'>
                   <button type='button' class='close' data-dismiss='alert'><span>×</span></button>

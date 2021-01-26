@@ -19,9 +19,8 @@
   $sql = "SELECT * FROM servers ORDER BY valid_to, name";
 
   $res = mysqli_query($db, $sql) or die(mysqli_error());
-
+  $posts2 = '';
   $posts1 = "
-          $ajax102
           <table class='table table-striped'>
             <thead>
               <tr>
@@ -38,17 +37,7 @@
 
   echo $posts1;
 
-  if($ajax101 == "false") {
-    echo "
-                <tr class='bg-dark'>
-                  <td>INVALID</td>
-                  <td>LICENSE</td>
-                  <td>INVALID</td>
-                  <td>LICENSE</td>
-                  <td><span class='badge badge-pill badge-danger'>Error</span></td>
-                </tr>";
-    exit();
-  }
+
 
 
   if(mysqli_num_rows($res) > 0) {
@@ -64,8 +53,8 @@
           $getupdate->state = $row["state"];
           $getupdate->admin = $admin;
 
-          echo $getupdate->fetchData($posts);
-          
+          echo $getupdate->fetchData($posts1);
+
     }
   }
   $posts2 .= "
@@ -73,6 +62,12 @@
             </table>
   ";
   echo $posts2;
+
+  $getupdate = new getUpdate($db);
+  $allDomains = $getupdate->getAllDomainsByState(3);
+
+  echo $getupdate->getRawData( $allDomains );
+
 ?>
 <script type="text/javascript">
     var elems = document.getElementsByClassName('confirmation');
