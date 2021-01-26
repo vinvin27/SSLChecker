@@ -264,12 +264,12 @@ class getUpdate {
 	  }
 	}
 
-	public function getAllDomainsByState( $state = false ){
+	public function getAllDomainsByAuthority( $state = 'null' ){
 		if( !$state ){
 			return false;
 		}
 
-		$sql = "SELECT * FROM servers WHERE state=".$state." ORDER BY valid_to, name" ;
+		$sql = "SELECT * FROM servers WHERE authority=".$state." ORDER BY valid_to, name" ;
 
 		$res = mysqli_query($this->db, $sql) or die(mysqli_error($this->db));
 		$rows = array();
